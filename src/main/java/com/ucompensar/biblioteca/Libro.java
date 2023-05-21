@@ -6,7 +6,8 @@ public class Libro {
    private int codigoLibro, numeroPaginas;
    private String nombreLibro, autorLibro, materiaLibro;
 
-    public Libro(int codigoLibro, int numeroPaginas, String nombreLibro, String autorLibro, String materiaLibro) {
+    public Libro(int codigoLibro, int numeroPaginas, String nombreLibro, 
+            String autorLibro, String materiaLibro) {
         this.codigoLibro = codigoLibro;
         this.numeroPaginas = numeroPaginas;
         this.nombreLibro = nombreLibro;

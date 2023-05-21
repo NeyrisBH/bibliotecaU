@@ -16,11 +16,14 @@ public class Biblioteca {
         int columna = 0;
 
         // Creamos algunos libros
-        libros[fila][columna] = new Libro(001, 96, "El principito", "Antoine de Saint-Exupéry", "Fábula");
+        libros[fila][columna] = new Libro(001, 96, 
+                "El principito", "Antoine de Saint-Exupéry", "Fábula");
         columna++;
-        libros[fila][columna] = new Libro(002, 432, "Cien años de soledad", "Gabriel García Márquez", "Realismo mágico");
+        libros[fila][columna] = new Libro(002, 432, 
+                "Cien años de soledad", "Gabriel García Márquez", "Realismo mágico");
         columna++;
-        libros[fila][columna] = new Libro(003, 863, "El Quijote", "Miguel de Cervantes", "Novela");
+        libros[fila][columna] = new Libro(003, 863, 
+                "El Quijote", "Miguel de Cervantes", "Novela");
         columna = 0;
         fila++;
 
@@ -68,6 +71,8 @@ public class Biblioteca {
         imprimirDatos(libros);
 
         buscarLibroPorNombre(libros, "nombreDelLibro");
+        
+        ordenarLibros(libros, "código", "selección");
     }
 
     public static Libro lecturaDatos(Scanner input) {
@@ -113,7 +118,7 @@ public class Biblioteca {
                 }
             }
         }
-        return null; // Si no se encontró el libro con el código dado
+        return null;
     }
 
     public static void eliminarLibroPorCodigo(Libro[][] libros, int codigo) {
@@ -144,7 +149,8 @@ public class Biblioteca {
         String nombreBuscar = input.nextLine();
         for (int i = 0; i < libros.length; i++) {
             for (int j = 0; j < libros[i].length; j++) {
-                if (libros[i][j] != null && libros[i][j].getNombreLibro().toLowerCase().contains(nombreBuscar.toLowerCase())) {
+                if (libros[i][j] != null && libros[i][j].getNombreLibro().toLowerCase()
+                        .contains(nombreBuscar.toLowerCase())) {
                     System.out.println("Código: " + libros[i][j].getCodigoLibro());
                     System.out.println("Nombre: " + libros[i][j].getNombreLibro());
                     System.out.println("Autor: " + libros[i][j].getAutorLibro());
@@ -162,10 +168,11 @@ public class Biblioteca {
 
     public static void ordenarLibros(Libro[][] libros, String campo, String metodo) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Ingrese ");
+        System.out.println("Ingrese la variable por la que desea ordenar");
+        String campoOrdenar = input.nextLine();
         // Se define la variable de comparación dependiendo del campo elegido
         Comparator<Libro> comparador = null;
-        switch (campo) {
+        switch (campoOrdenar) {
             case "código":
                 comparador = Comparator.comparing(Libro::getCodigoLibro);
                 break;
@@ -187,12 +194,15 @@ public class Biblioteca {
         }
 
         // Se define el método de ordenamiento a utilizar
+        System.out.println("Ingrese el método por el que desea ordenar");
+        String metodoOrdenar = input.nextLine();
         switch (metodo) {
             case "burbuja":
                 for (int i = 0; i < libros.length; i++) {
                     for (int j = 0; j < libros[i].length - 1; j++) {
                         for (int k = j + 1; k < libros[i].length; k++) {
-                            if (libros[i][k] != null && (libros[i][j] == null || comparador.compare(libros[i][k], libros[i][j]) < 0)) {
+                            if (libros[i][k] != null && (libros[i][j] == null || 
+                                    comparador.compare(libros[i][k], libros[i][j]) < 0)) {
                                 Libro temp = libros[i][k];
                                 libros[i][k] = libros[i][j];
                                 libros[i][j] = temp;
@@ -206,7 +216,8 @@ public class Biblioteca {
                     for (int j = 0; j < libros[i].length - 1; j++) {
                         int minIndex = j;
                         for (int k = j + 1; k < libros[i].length; k++) {
-                            if (libros[i][k] != null && (libros[i][minIndex] == null || comparador.compare(libros[i][k], libros[i][minIndex]) < 0)) {
+                            if (libros[i][k] != null && (libros[i][minIndex] == null || 
+                                    comparador.compare(libros[i][k], libros[i][minIndex]) < 0)) {
                                 minIndex = k;
                             }
                         }
@@ -242,5 +253,4 @@ public class Biblioteca {
         // Se imprime la lista de libros ordenada
         imprimirDatos(libros);
     }
-
 }
